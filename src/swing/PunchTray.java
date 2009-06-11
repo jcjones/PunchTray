@@ -65,7 +65,7 @@ public class PunchTray {
 		SingleInstance si = new SingleInstance("PunchTray");
 
 		if (SystemTray.isSupported()) {
-			final PunchOut inPanel = new PunchOut(engine);
+			final PunchIn inPanel = new PunchIn(engine);
 			final PunchOut outPanel = new PunchOut(engine);
 			final Append appendPanel = new Append(engine);
 			final PunchList listPanel = new PunchList(engine);

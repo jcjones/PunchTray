@@ -18,13 +18,11 @@ import engine.PunchEngine;
 public class PunchIn extends JPanel {
 	private static final long serialVersionUID = -6213407582068927481L;
 	
-	private final JTextArea memoField;
 	private final JTextField timeElapsedField;
 	private final JTextField timeInField;
 	private final ActionListener update;
 	
 	public PunchIn(final PunchEngine engine) {
-		memoField = new JTextArea(4,40);
 		timeElapsedField = new JTextField(40);
 		timeInField = new JTextField(40);
 
@@ -47,8 +45,6 @@ public class PunchIn extends JPanel {
 		ZoneLayout layout = ZoneLayoutFactory.newZoneLayout();
 		layout.addRow("aa2b~b");
 		layout.addRow("6.....");
-		layout.addRow("cc2d~d");
-		layout.addRow("6.....");
 		layout.addRow("e+...e");
 		
 		setLayout(layout);
@@ -58,12 +54,10 @@ public class PunchIn extends JPanel {
 		
 		add(new JLabel("Time In:"), "a");
 		add(timeInField, "b");
-		add(new JLabel("Memo:"), "c");
-		add(new JScrollPane(memoField, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), "d");
 		add(timeElapsedField, "e");
 	}
 
 	public String getMemo() {
-		return memoField.getText();
+		return "";
 	}
 }
