@@ -112,7 +112,7 @@ public class PunchConsole {
 	                int idx = Integer.parseInt(parts[1]);
 	                Punch p = engine.getAllPunches().get(idx);
 	                
-	                out.print("Are you sure? [y/N]:");
+	                out.print("Are you sure you want to delete " + p + " [y/N]:");
 	                String line = in.readLine();
 	                if (line.toLowerCase().startsWith("y")) 
                     {
