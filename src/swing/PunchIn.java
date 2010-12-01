@@ -1,3 +1,4 @@
+/* Copyright 2009 James C. Jones, All Rights Reserved */
 package swing;
 
 import java.awt.event.ActionEvent;

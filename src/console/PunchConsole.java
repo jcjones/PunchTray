@@ -1,3 +1,5 @@
+/* Copyright 2009 James C. Jones, All Rights Reserved */
+/* Copyright 2009 James C. Jones, All Rights Reserved */
 package console;
 
 import java.io.BufferedReader;
