@@ -1,4 +1,7 @@
-/* Copyright 2009 James C. Jones, All Rights Reserved */
+/* 
+ * Copyright 2009 James C. Jones, licensed under the terms of the GNU GPL v2 
+ * See the COPYING file for details. 
+ */
 /* Copyright 2009 James C. Jones, All Rights Reserved */
 package console;
 
