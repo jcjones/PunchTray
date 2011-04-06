@@ -13,7 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
-import engine.Punch;
+import dbo.Punch;
+
 import engine.PunchEngine;
 
 public class PunchConsole {

@@ -22,7 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
-import engine.Punch;
+import dbo.Punch;
+
 import engine.PunchEngine;
 import engine.PunchInformation;
 import engine.SingleInstance;
@@ -92,10 +93,11 @@ public class PunchTray {
 
 			ActionListener tooltipListener = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (engine.getLastPunch() == null) {
+					Punch p = engine.getLastPunch();
+					if (p == null) {
 						trayIcon.setToolTip("You haven't punched in yet.");
 					} else {
-						trayIcon.setToolTip("You are " + (engine.getLastPunch().inPunch ? "on the clock" : "off the clock") + " and have worked "
+						trayIcon.setToolTip("You are " + ((p.dateOut==null) ? "on the clock" : "off the clock") + " and have worked "
 								+ PunchEngine.formatMinutes(engine.minutesWorkedToday()) + " today.");
 					}
 				}
@@ -106,7 +108,7 @@ public class PunchTray {
 
 				public void actionPerformed(ActionEvent e) {
 
-					if (engine.getLastPunch() != null && engine.getLastPunch().inPunch == false) {
+					if (engine.getLastPunch() != null && engine.getLastPunch().dateOut != null) {
 						if (doneOnce == false) {
 							doneOnce = true;
 							trayIcon.displayMessage("Not punched in!", "You haven't punched in yet", TrayIcon.MessageType.WARNING);
@@ -127,7 +129,7 @@ public class PunchTray {
 
 			ActionListener inOutListener = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if (engine.getLastPunch() == null || engine.getLastPunch().inPunch == false)
+                    if (engine.getLastPunch() == null || engine.getLastPunch().dateOut != null)
                         punchIn();
                     else
                         punchOut();
@@ -265,7 +267,7 @@ public class PunchTray {
 	}
 
 	private void menuStateUpdate() {
-		if (engine.getLastPunch() == null || engine.getLastPunch().inPunch == false) {
+		if (engine.getLastPunch() == null || engine.getLastPunch().dateOut != null) {
 			inOutItem.setLabel("Punch In");
 		} else {
             inOutItem.setLabel("Punch Out");

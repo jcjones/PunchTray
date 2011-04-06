@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import dbo.Punch;
+
 public class PunchInformation {
     private List<PunchDay> days;
     

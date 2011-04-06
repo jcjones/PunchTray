@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import engine.Punch;
+import dbo.Punch;
 
-public class FlatDatabase {
+
+public class FlatDatabase implements PunchDatabase {
 	File databaseFile;
 	List<Punch> data;
 
@@ -24,6 +25,10 @@ public class FlatDatabase {
 		databaseFile = db;
 	}
 
+	/* (non-Javadoc)
+	 * @see db.PunchDatabase#write(engine.Punch)
+	 */
+	@Override
 	public void write(Punch obj) {
 		try {
 			if (data == null) {
@@ -44,6 +49,10 @@ public class FlatDatabase {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see db.PunchDatabase#read()
+	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Punch> read() {
 		try {
@@ -66,6 +75,10 @@ public class FlatDatabase {
 		return data;
 	}
 
+	/* (non-Javadoc)
+	 * @see db.PunchDatabase#update()
+	 */
+	@Override
 	public void update() {
 		try {
 			Collections.sort(data);

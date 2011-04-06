@@ -10,25 +10,25 @@ package engine;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Punch implements Serializable, Comparable<Punch> {
+public class LegacyPunch implements Serializable, Comparable<LegacyPunch> {
 	private static final long serialVersionUID = 837373729219302L;
 	public Date date;
 	public boolean inPunch;
 	public String description;
 	public Serializable extra;
-
-	public Punch(Date date, boolean inPunch) {
+	
+	public LegacyPunch(Date date, boolean inPunch) {
 		this.date = date;
 		this.inPunch = inPunch;
 	}
 
-	public Punch(Date date, boolean inPunch, String description) {
+	public LegacyPunch(Date date, boolean inPunch, String description) {
 		this.date = date;
 		this.inPunch = inPunch;
 		this.description = description;
 	}
 
-	public Punch(Date date, boolean inPunch, String description,
+	public LegacyPunch(Date date, boolean inPunch, String description,
 			Serializable extra) {
 		this.date = date;
 		this.inPunch = inPunch;
@@ -42,7 +42,7 @@ public class Punch implements Serializable, Comparable<Punch> {
 	}
 
 	@Override
-	public int compareTo(Punch target) {
+	public int compareTo(LegacyPunch target) {
 		return target.date.compareTo(date);
 	}
 }

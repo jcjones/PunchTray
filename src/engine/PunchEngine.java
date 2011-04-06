@@ -12,13 +12,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import db.FlatDatabase;
+import db.PunchDatabase;
+import db.SqliteDatabase;
+import dbo.Punch;
 
 public class PunchEngine {
-	FlatDatabase db;
+	PunchDatabase db;
 	
 	public PunchEngine() {
-		db = new FlatDatabase(new File(System.getenv("APPDATA") + System.getProperty("file.separator") + "punchData.dat"));
+		db = new SqliteDatabase(new File(System.getenv("APPDATA") + System.getProperty("file.separator") + "punchData.dat"));
 	}
 	
 	public void enterPunch(Date date, boolean inPunch)
@@ -28,16 +30,33 @@ public class PunchEngine {
 	
 	public void enterPunch(Date date, boolean inPunch, String description)
 	{
+		Punch last = getLastPunch();
 		try {
-			if (inPunch == getLastPunch().inPunch)
+			if (inPunch && last.dateOut == null)
 			{
-				throw new RuntimeException("Last punch was of the same type!");
+				throw new RuntimeException("Last punch wasn't completed!");
 			}
 		} catch (RuntimeException e) {}
 		
-		db.write(new Punch(date, inPunch, description));
+		Punch p;
+		
+		if (inPunch) {
+			p = new Punch();
+			p.dateIn = convertDate(date);
+			p.description = description;
+		} else {
+			p = last;
+			last.dateOut = convertDate(date);
+			last.description = description;
+		}
+		
+		db.write(p);
 	}
 	
+	private java.sql.Date convertDate(Date date) {
+		return new java.sql.Date(date.getTime());
+	}
+
 	public void updatePunch(Punch punch)
 	{
 		db.update();
@@ -64,10 +83,10 @@ public class PunchEngine {
 	    ArrayList<Punch> nList = new ArrayList<Punch>();
         for (Punch p : getAllPunches())
         {
-            if (p.date.before(start))
+            if (p.dateIn.before(start))
                 break;
             
-            if (p.date.after(end) == false)
+            if (p.dateOut.after(end) == false)
                 nList.add(p);
         }
         return nList;
@@ -97,7 +116,7 @@ public class PunchEngine {
 		
 		for (Punch p : getPunchesSince(startOfDay))
 		{
-			assert !p.date.before(startOfDay);				
+			assert !p.dateIn.before(startOfDay);				
 			
 			if (p.inPunch && outTime == null)
 			{
